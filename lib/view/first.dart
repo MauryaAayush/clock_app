@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main()
@@ -14,9 +16,20 @@ class SimpleClock extends StatefulWidget {
 
 DateTime dateTime = DateTime.now();
 
+
 class _SimpleClockState extends State<SimpleClock> {
   @override
   Widget build(BuildContext context) {
+
+    Timer.periodic(
+      Duration(seconds: 1),
+        (timer){
+        setState(() {
+          dateTime = DateTime.now();
+        });
+        }
+        );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
