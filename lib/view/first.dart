@@ -31,6 +31,7 @@ class _SimpleClockState extends State<SimpleClock> {
         );
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('Digital Clock',style: TextStyle(
