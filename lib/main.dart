@@ -1,5 +1,4 @@
 import 'package:clock_app/view/first.dart';
-import 'package:clock_app/view/second.dart';
 import 'package:flutter/material.dart';
 
 void main() {
