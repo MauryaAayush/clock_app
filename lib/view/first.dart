@@ -21,6 +21,9 @@ class _SimpleClockState extends State<SimpleClock> {
   @override
   Widget build(BuildContext context) {
 
+    int hour = dateTime.hour % 12;
+    hour = (hour == 0) ? 12 : hour;
+
     Timer.periodic(
       Duration(seconds: 1),
         (timer){
@@ -42,25 +45,89 @@ class _SimpleClockState extends State<SimpleClock> {
        shadowColor: Colors.black,
       ),
       body: Center(
-        child: Container(
-                color: Colors.black,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('${dateTime.hour % 12} :',style: TextStyle(
-                color: Colors.white,
-                fontSize: 60
-              ),),
-              Text(' ${dateTime.minute} : ',style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 60
-              ),),
-              Text('${dateTime.second}',style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 60
-              ),),
-            ],
-          ),
+        child: Stack(
+            children:[
+              Container(
+                height: double.infinity,
+                width:double.infinity ,
+                  // color: Colors.blue,
+                  child: Image.asset('assets/images/back.jpg',fit: BoxFit.fitHeight,),
+              ),
+            Positioned(
+              top: 350,
+              left: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+
+                  Container(
+                    height: 100,
+                    width: 80,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+
+                    ),
+
+                    child: Text('$hour',style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 50,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+                  Container(
+                    height: 100,
+                    width: 80,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.all(Radius.circular(10))
+                    ),
+
+                    child: Text(' ${dateTime.minute} ',style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 50
+                     ),
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+                  Container(
+                    height: 100,
+                    width: 80,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                    ),
+                    child: Text('${dateTime.second}',style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 50
+                    ),),
+                  ),
+                  SizedBox(width: 10,),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.5),
+                          borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
+                      child: Text("${dateTime.hour < 12 ? 'AM' : 'PM'}",style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25
+                      ),),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ]
         ),
       )
     );
