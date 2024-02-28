@@ -47,22 +47,20 @@ class _AnalogState extends State<Analog> {
                 height: 230,
                 width: 230,
                 decoration: BoxDecoration(
-                  color: Colors.black26,
-                  shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.green,
-                  width: 2,
-                )
-                ),
+                    color: Colors.black26,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.green,
+                      width: 2,
+                    )),
                 child: Stack(
                   children: [
                     ...List.generate(
                       60,
                       (index) => Transform.rotate(
-
                         angle: index * 6 * pi / 180,
                         child: VerticalDivider(
-                          color:  (index % 5 == 0) ? Colors.green : Colors.black,
+                          color: (index % 5 == 0) ? Colors.green : Colors.black,
                           thickness: 2.5,
                           indent: (index % 5 == 0) ? 210 : 220,
                           endIndent: 0,
@@ -77,10 +75,11 @@ class _AnalogState extends State<Analog> {
                         ),
                       ),
                     ),
-
-
                     Transform.rotate(
-                      angle:(dateTime.hour % 12 + dateTime.minute / 60) * 30 * pi / 180,
+                      angle: (dateTime.hour % 12 + dateTime.minute / 60) *
+                          30 *
+                          pi /
+                          180,
                       child: const VerticalDivider(
                         color: Colors.red,
                         thickness: 3.5,
@@ -88,8 +87,6 @@ class _AnalogState extends State<Analog> {
                         endIndent: 110,
                       ),
                     ),
-
-
                     Transform.rotate(
                       angle: dateTime.minute * 6 * pi / 180,
                       child: const VerticalDivider(
@@ -99,9 +96,6 @@ class _AnalogState extends State<Analog> {
                         endIndent: 110,
                       ),
                     ),
-
-
-
                     Transform.rotate(
                       angle: dateTime.second * 6 * pi / 180,
                       child: const VerticalDivider(
@@ -111,8 +105,6 @@ class _AnalogState extends State<Analog> {
                         endIndent: 90,
                       ),
                     ),
-
-
                   ],
                 ),
               ),
