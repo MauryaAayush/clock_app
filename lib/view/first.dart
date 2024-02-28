@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:intl/intl.dart';
 
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -53,50 +52,47 @@ class _SimpleClockState extends State<SimpleClock> {
                 fit: BoxFit.fitHeight,
               ),
             ),
-
-
             Positioned(
-              top: 100,
+              top: 90,
               left: 20,
               child: ClipRect(
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5,sigmaY: 5),
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                   child: Container(
                     alignment: Alignment.center,
-                    height: 150,
+                    height: 170,
                     width: 370,
                     decoration: BoxDecoration(
                         color: Colors.black54,
-                      borderRadius: BorderRadius.all(Radius.circular(10))
-                    ),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           // crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-
-                            Stack(
-                              children:[
-
-                                Positioned(
-                                  top: 53,
-                                  child: Container(
-                                    color: Colors.white,
-                                    height: 2,
-                                    width: 80,
-                                  ),
+                            Stack(children: [
+                              Positioned(
+                                top: 53,
+                                child: Container(
+                                  color: Colors.white,
+                                  height: 2,
+                                  width: 80,
                                 ),
-                                ClipRect(
+                              ),
+                              ClipRect(
                                 child: BackdropFilter(
-                                  filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                                   child: Container(
                                     height: 100,
                                     width: 80,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       color: Colors.black12,
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
                                     ),
                                     child: Text(
                                       '$hour',
@@ -108,78 +104,73 @@ class _SimpleClockState extends State<SimpleClock> {
                                   ),
                                 ),
                               ),
-                            ]
-                            ),
+                            ]),
                             SizedBox(
                               width: 10,
                             ),
-                            Stack(
-                              children: [
-
-                                Positioned(
-                                  top: 53,
-                                  child: Container(
-                                    color: Colors.white,
-                                    height: 2,
-                                    width: 90,
-                                  ),
+                            Stack(children: [
+                              Positioned(
+                                top: 53,
+                                child: Container(
+                                  color: Colors.white,
+                                  height: 2,
+                                  width: 90,
                                 ),
-
-                                ClipRect(
+                              ),
+                              ClipRect(
                                 child: BackdropFilter(
-                                  filter: ImageFilter.blur(sigmaX: 0,sigmaY: 0),
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                                   child: Container(
                                     height: 100,
                                     width: 80,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                         color: Colors.black12,
-                                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
                                     child: Text(
                                       ' ${dateTime.minute} ',
-                                      style: TextStyle(color: Colors.white, fontSize: 50),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 50),
                                     ),
                                   ),
                                 ),
                               ),
-                          ]
-                            ),
+                            ]),
                             SizedBox(
                               width: 10,
                             ),
-
-                            Stack(
-                              children: [
-
-                                Positioned(
-                                  top: 53,
-                                  child: Container(
-                                    color: Colors.white,
-                                    height: 2,
-                                    width: 90,
-                                  ),
+                            Stack(children: [
+                              Positioned(
+                                top: 53,
+                                child: Container(
+                                  color: Colors.white,
+                                  height: 2,
+                                  width: 90,
                                 ),
-
-                                ClipRect(
+                              ),
+                              ClipRect(
                                 child: BackdropFilter(
-                                  filter: ImageFilter.blur(sigmaX: 0,sigmaY: 0),
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                                   child: Container(
                                     height: 100,
                                     width: 80,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                         color: Colors.black12,
-                                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
                                     child: Text(
                                       '${dateTime.second}',
-                                      style: TextStyle(color: Colors.white, fontSize: 50),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 50),
                                     ),
                                   ),
                                 ),
                               ),
-                          ]
-                            ),
-
+                            ]),
                             SizedBox(
                               width: 10,
                             ),
@@ -191,32 +182,60 @@ class _SimpleClockState extends State<SimpleClock> {
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     color: Colors.black.withOpacity(0.5),
-                                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
                                 child: Text(
                                   "${dateTime.hour < 12 ? 'AM' : 'PM'}",
-                                  style: TextStyle(color: Colors.white, fontSize: 25),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 25),
                                 ),
                               ),
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('${dateTime.day}'),
+                            Text(
+                              '${dateTime.day}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
                             SizedBox(width: 10),
-                            Text(DateFormat('MMMM').format(dateTime)),
+                            Text(
+                              DateFormat('MMMM').format(dateTime),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
                             SizedBox(width: 10),
-                            Text('${dateTime.year}'),
+                            Text(
+                              '${dateTime.year}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
                           ],
                         ),
-
                       ],
                     ),
                   ),
                 ),
               ),
             ),
+            Positioned(
+                bottom: 100,
+                right: 160,
+                child: CircleAvatar(child: Icon(Icons.language,size: 50,
+                color: Colors.white),radius: 45,
+                backgroundColor: Colors.black54,))
           ]),
         ));
   }
