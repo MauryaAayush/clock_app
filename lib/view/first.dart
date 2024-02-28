@@ -233,9 +233,11 @@ class _SimpleClockState extends State<SimpleClock> {
             Positioned(
                 bottom: 100,
                 right: 160,
-                child: CircleAvatar(child: Icon(Icons.language,size: 50,
-                color: Colors.white),radius: 45,
-                backgroundColor: Colors.black54,))
+                child: CircleAvatar(
+                  child: Icon(Icons.language, size: 50, color: Colors.white),
+                  radius: 45,
+                  backgroundColor: Colors.black54,
+                ))
           ]),
         ));
   }
