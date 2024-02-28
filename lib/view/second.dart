@@ -104,7 +104,7 @@ class _AnalogState extends State<Analog> {
 
                     Transform.rotate(
                       angle: dateTime.second * 6 * pi / 180,
-                      child: VerticalDivider(
+                      child: const VerticalDivider(
                         color: Colors.green,
                         thickness: 2.5,
                         indent: 20,
