@@ -31,7 +31,7 @@ class _AnalogState extends State<Analog> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(
+        title: const Text(
           'Analog Clock',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
@@ -69,7 +69,7 @@ class _AnalogState extends State<Analog> {
                         ),
                       ),
                     ),
-                    Positioned.fill(
+                    const Positioned.fill(
                       child: Center(
                         child: CircleAvatar(
                           backgroundColor: Colors.black,
@@ -81,7 +81,7 @@ class _AnalogState extends State<Analog> {
 
                     Transform.rotate(
                       angle:(dateTime.hour % 12 + dateTime.minute / 60) * 30 * pi / 180,
-                      child: VerticalDivider(
+                      child: const VerticalDivider(
                         color: Colors.red,
                         thickness: 3.5,
                         indent: 40,
@@ -92,7 +92,7 @@ class _AnalogState extends State<Analog> {
 
                     Transform.rotate(
                       angle: dateTime.minute * 6 * pi / 180,
-                      child: VerticalDivider(
+                      child: const VerticalDivider(
                         color: Colors.blue,
                         thickness: 3,
                         indent: 30,
