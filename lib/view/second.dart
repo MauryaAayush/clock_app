@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -48,17 +47,22 @@ class _AnalogState extends State<Analog> {
                 height: 230,
                 width: 230,
                 decoration: BoxDecoration(
-                  color: Colors.cyan,
+                  color: Colors.black26,
                   shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.green,
+                  width: 2,
+                )
                 ),
                 child: Stack(
                   children: [
                     ...List.generate(
                       60,
                       (index) => Transform.rotate(
+
                         angle: index * 6 * pi / 180,
                         child: VerticalDivider(
-                          color: Colors.black,
+                          color:  (index % 5 == 0) ? Colors.green : Colors.black,
                           thickness: 2.5,
                           indent: (index % 5 == 0) ? 210 : 220,
                           endIndent: 0,
@@ -73,33 +77,42 @@ class _AnalogState extends State<Analog> {
                         ),
                       ),
                     ),
+
+
                     Transform.rotate(
-                      angle: dateTime.second * 6 * pi / 180,
+                      angle:(dateTime.hour % 12 + dateTime.minute / 60) * 30 * pi / 180,
                       child: VerticalDivider(
-                        color: Colors.black,
-                        thickness: 2.5,
-                        indent: 20,
-                        endIndent: 90,
+                        color: Colors.red,
+                        thickness: 3.5,
+                        indent: 40,
+                        endIndent: 110,
                       ),
                     ),
+
+
                     Transform.rotate(
                       angle: dateTime.minute * 6 * pi / 180,
                       child: VerticalDivider(
                         color: Colors.blue,
                         thickness: 3,
                         indent: 30,
-                        endIndent: 90,
+                        endIndent: 110,
                       ),
                     ),
+
+
+
                     Transform.rotate(
-                      angle: dateTime.hour * 30 * pi / 180,
+                      angle: dateTime.second * 6 * pi / 180,
                       child: VerticalDivider(
-                        color: Colors.red,
-                        thickness: 3.5,
-                        indent: 40,
+                        color: Colors.green,
+                        thickness: 2.5,
+                        indent: 20,
                         endIndent: 90,
                       ),
                     ),
+
+
                   ],
                 ),
               ),
