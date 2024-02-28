@@ -1,0 +1,114 @@
+import 'dart:async';
+import 'dart:math';
+import 'dart:ui';
+import 'package:intl/intl.dart';
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const Analog());
+}
+
+class Analog extends StatefulWidget {
+  const Analog({super.key});
+
+  @override
+  State<Analog> createState() => _AnalogState();
+}
+
+DateTime dateTime = DateTime.now();
+
+class _AnalogState extends State<Analog> {
+  @override
+  Widget build(BuildContext context) {
+    int hour = dateTime.hour % 12;
+    hour = (hour == 0) ? 12 : hour;
+
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        dateTime = DateTime.now();
+      });
+    });
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text(
+          'Analog Clock',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 230,
+                width: 230,
+                decoration: BoxDecoration(
+                  color: Colors.cyan,
+                  shape: BoxShape.circle,
+                ),
+                child: Stack(
+                  children: [
+                    ...List.generate(
+                      60,
+                      (index) => Transform.rotate(
+                        angle: index * 6 * pi / 180,
+                        child: VerticalDivider(
+                          color: Colors.black,
+                          thickness: 2.5,
+                          indent: (index % 5 == 0) ? 210 : 220,
+                          endIndent: 0,
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: Center(
+                        child: CircleAvatar(
+                          backgroundColor: Colors.black,
+                          radius: 10,
+                        ),
+                      ),
+                    ),
+                    Transform.rotate(
+                      angle: dateTime.second * 6 * pi / 180,
+                      child: VerticalDivider(
+                        color: Colors.black,
+                        thickness: 2.5,
+                        indent: 20,
+                        endIndent: 90,
+                      ),
+                    ),
+                    Transform.rotate(
+                      angle: dateTime.minute * 6 * pi / 180,
+                      child: VerticalDivider(
+                        color: Colors.blue,
+                        thickness: 3,
+                        indent: 30,
+                        endIndent: 90,
+                      ),
+                    ),
+                    Transform.rotate(
+                      angle: dateTime.hour * 30 * pi / 180,
+                      child: VerticalDivider(
+                        color: Colors.red,
+                        thickness: 3.5,
+                        indent: 40,
+                        endIndent: 90,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

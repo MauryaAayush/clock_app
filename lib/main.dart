@@ -1,4 +1,5 @@
 import 'package:clock_app/view/first.dart';
+import 'package:clock_app/view/second.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,11 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: '/',
+      initialRoute: '/second',
       routes: {
 
         '/'  : (context) => const SimpleClock(),
-        // '/second'  : (context) =>  DigitalClock()
+        '/second'  : (context) =>  const Analog()
       },
 
     );
