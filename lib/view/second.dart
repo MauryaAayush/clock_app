@@ -175,7 +175,7 @@ class _AnalogState extends State<Analog> {
                                       ),
                                       child: Text(
                                         '$hour',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 50,
                                         ),
