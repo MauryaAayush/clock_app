@@ -277,10 +277,10 @@ class _AnalogState extends State<Analog> {
                                   fontSize: 20,
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                 '${dateTime.year}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                 ),
