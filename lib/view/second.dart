@@ -264,15 +264,15 @@ class _AnalogState extends State<Analog> {
                             children: [
                               Text(
                                 '${dateTime.day}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                 DateFormat('MMMM').format(dateTime),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                 ),
