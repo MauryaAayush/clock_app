@@ -184,7 +184,7 @@ class _AnalogState extends State<Analog> {
                                   ),
                                 ),
                               ]),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Stack(children: [
