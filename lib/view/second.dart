@@ -76,10 +76,7 @@ class _AnalogState extends State<Analog> {
                       ),
                     ),
                     Transform.rotate(
-                      angle: (dateTime.hour % 12 + dateTime.minute / 60) *
-                          30 *
-                          pi /
-                          180,
+                      angle: (dateTime.hour % 12 + dateTime.minute / 60) * 30 * pi / 180,
                       child: const VerticalDivider(
                         color: Colors.red,
                         thickness: 3.5,
