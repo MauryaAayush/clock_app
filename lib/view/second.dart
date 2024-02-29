@@ -141,7 +141,7 @@ class _AnalogState extends State<Analog> {
                       alignment: Alignment.center,
                       height: 170,
                       width: 370,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.black12,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Column(
