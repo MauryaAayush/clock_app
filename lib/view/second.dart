@@ -271,7 +271,7 @@ class _AnalogState extends State<Analog> {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                DateFormat('MMMM').format(dateTime),
+                                DateFormat('MMM').format(dateTime),
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
