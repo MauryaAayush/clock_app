@@ -130,7 +130,7 @@ class _AnalogState extends State<Analog> {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 150,
                 ),
 
