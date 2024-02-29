@@ -40,7 +40,7 @@ class _AnalogState extends State<Analog> {
         centerTitle: true,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/back.jpg',),fit: BoxFit.fill),
 
