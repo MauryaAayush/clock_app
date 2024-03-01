@@ -23,7 +23,7 @@ class _SimpleClockState extends State<SimpleClock> {
     int hour = dateTime.hour % 12;
     hour = (hour == 0) ? 12 : hour;
 
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         dateTime = DateTime.now();
       });
