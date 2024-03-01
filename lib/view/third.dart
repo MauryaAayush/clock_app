@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -15,103 +14,158 @@ class StopWatch extends StatefulWidget {
 }
 
 class _StopWatchState extends State<StopWatch> {
-  Stopwatch stopwatch = Stopwatch();
-  late Timer timer;
+  int minisec = 0, second = 0, minute = 0, hour = 0;
+  String Digitminisec = "00",
+      Digitsecond = "00",
+      Digitminutes = "00",
+      Digithour = "00";
 
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(Duration(milliseconds: 30), _updateElapsedTime);
+  Timer? timer;
+  bool started = false;
+  List laps = [];
+
+  // here we are creating function for timer
+
+  void stop() {
+    timer!.cancel();
+    setState(() {
+      started = false;
+    });
+  }
+
+  //here creating function for the reset
+
+  void restart() {
+    timer!.cancel();
+    setState(() {
+      minisec = 0;
+      second = 0;
+      minute = 0;
+      hour = 0;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text(
-          'Stopwatch',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        backgroundColor: Colors.cyan,
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Text(
+            'Stopwatch',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+          centerTitle: true,
+          elevation: 10,
+          shadowColor: Colors.black,
         ),
-        centerTitle: true,
-        elevation: 10,
-        shadowColor: Colors.black,
-      ),
-      body: Center(
-        child: Stack(
+        body: Column(
           children: [
-            Positioned(
-              top: 90,
-              left: 20,
-              child: ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 170,
-                    width: 370,
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 100,
-                          width: 240,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Text(
-                            formatTime(stopwatch.elapsed),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              if (stopwatch.isRunning) {
-                                stopwatch.stop();
-                              } else {
-                                stopwatch.start();
-                              }
-                            });
-                          },
-                          child: Text(stopwatch.isRunning ? 'Stop' : 'Start'),
-                        ),
-                      ],
-                    ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 70),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    '00',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 50,
+                        fontWeight: FontWeight.w600),
                   ),
-                ),
+                  Text(
+                    ':',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    '00',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 50,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    ':',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    '00',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 50,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    '.',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    '0',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
             ),
+            Container(
+              height: 400,
+              width: 350,
+              decoration: BoxDecoration(color: Colors.black12),
+            ),
+            SizedBox(height: 80),
+            Row(children: [
+              Container(
+                alignment: Alignment.center,
+                height: 50,
+                width: 180,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blueAccent, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                child: Text(
+                  'Start',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.blueAccent,
+                  border: Border.all(color: Colors.blue, width: 1.5),
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(onPressed: () {}, icon: Icon(Icons.flag)),
+              ),
+              Container(
+                alignment: Alignment.center,
+                height: 50,
+                width: 180,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blueAccent, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                child: Text(
+                  'Restart',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20),
+                ),
+              )
+            ])
           ],
-        ),
-      ),
-    );
-  }
-
-  void _updateElapsedTime(Timer timer) {
-    if (stopwatch.isRunning) {
-      setState(() {});
-    }
-  }
-
-  String formatTime(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    String minutes = twoDigits(duration.inMinutes);
-    String seconds = twoDigits(duration.inSeconds.remainder(60));
-    String milliseconds = twoDigits((duration.inMilliseconds % 1000) ~/ 10);
-    return '$minutes:$seconds.$milliseconds';
+        ));
   }
 }
