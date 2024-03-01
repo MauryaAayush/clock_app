@@ -118,7 +118,7 @@ class _StopWatchState extends State<StopWatch> {
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  '$digitMinutes',
+                  digitMinutes,
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 50,
