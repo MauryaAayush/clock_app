@@ -42,15 +42,61 @@ class _StopWatchState extends State<StopWatch> {
       second = 0;
       minute = 0;
       hour = 0;
+
+      Digitminisec = "00";
+      Digitsecond = "00";
+      Digitminutes = "00";
+      Digithour = "00";
+
+      started = false;
+    });
+  }
+
+  void addlaps() {
+    String lap = "$Digithour:$Digitminutes:$Digitsecond:$Digitminisec";
+
+    setState(() {
+      laps.add(lap);
+    });
+  }
+
+  // now let's create the start function
+
+  void start() {
+    started = true;
+    timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      setState(() {
+        minisec++;
+
+        if (minisec >= 100) {
+          minisec = 0;
+          second++;
+
+          if (second >= 60) {
+            second = 0;
+            minute++;
+
+            if (minute >= 60) {
+              minute = 0;
+              hour++;
+            }
+          }
+        }
+
+        Digitminisec = (minisec % 100).toString().padLeft(2, '0');
+        Digitsecond = second.toString().padLeft(2, '0');
+        Digitminutes = minute.toString().padLeft(2, '0');
+        Digithour = hour.toString().padLeft(2, '0');
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Color(0xFF151C2F),
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Color(0xFF151C2F),
           title: Text(
             'Stopwatch',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
@@ -68,7 +114,7 @@ class _StopWatchState extends State<StopWatch> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    '00',
+                    '$Digithour',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 50,
@@ -82,7 +128,7 @@ class _StopWatchState extends State<StopWatch> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    '00',
+                    '$Digitminutes',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 50,
@@ -96,7 +142,7 @@ class _StopWatchState extends State<StopWatch> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    '00',
+                    '$Digitsecond',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 50,
@@ -110,7 +156,7 @@ class _StopWatchState extends State<StopWatch> {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    '0',
+                    '$Digitminisec',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -122,46 +168,89 @@ class _StopWatchState extends State<StopWatch> {
             Container(
               height: 400,
               width: 350,
-              decoration: BoxDecoration(color: Colors.black12),
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(20)),
+              child: ListView.builder(
+                itemCount: laps.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Lap : ${index + 1}",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        Text(
+                          "${laps[index]}",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
             SizedBox(height: 80),
             Row(children: [
-              Container(
-                alignment: Alignment.center,
-                height: 50,
-                width: 180,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueAccent, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
-                child: Text(
-                  'Start',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
+              InkWell(
+                onTap: () {
+                  (!started) ? start() : stop();
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 45,
+                  width: 170,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueAccent, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                  child: Text(
+                    (!started) ? "Start" : "Stop",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20),
+                  ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  border: Border.all(color: Colors.blue, width: 1.5),
-                  shape: BoxShape.circle,
+              InkWell(
+                onTap: () {
+                  addlaps();
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    border: Border.all(color: Colors.blue, width: 1.5),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                      onPressed: () {
+                        addlaps();
+                      },
+                      icon: Icon(Icons.flag)),
                 ),
-                child: IconButton(onPressed: () {}, icon: Icon(Icons.flag)),
               ),
-              Container(
-                alignment: Alignment.center,
-                height: 50,
-                width: 180,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueAccent, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
-                child: Text(
-                  'Restart',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
+              InkWell(
+                onTap: () {
+                  restart();
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 45,
+                  width: 170,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueAccent, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                  child: Text(
+                    'Restart',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20),
+                  ),
                 ),
               )
             ])
