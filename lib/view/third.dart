@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,247 +13,245 @@ class StopWatch extends StatefulWidget {
 }
 
 class _StopWatchState extends State<StopWatch> {
+  late Stopwatch stopWatch;
+  late Timer timer;
+
   int minisec = 0, second = 0, minute = 0, hour = 0;
-  String Digitminisec = "00",
-      Digitsecond = "00",
-      Digitminutes = "00",
-      Digithour = "00";
+  String digitMinisec = "00",
+      digitSecond = "00",
+      digitMinutes = "00",
+      digitHour = "00";
 
-  Timer? timer;
   bool started = false;
-  List laps = [];
+  List<String> laps = [];
 
-  // here we are creating function for timer
-
-  void stop() {
-    timer!.cancel();
-    setState(() {
-      started = false;
-    });
+  @override
+  void initState() {
+    super.initState();
+    stopWatch = Stopwatch();
   }
 
-  //here creating function for the reset
-
-  void restart() {
-    timer!.cancel();
-    setState(() {
-      minisec = 0;
-      second = 0;
-      minute = 0;
-      hour = 0;
-
-      Digitminisec = "00";
-      Digitsecond = "00";
-      Digitminutes = "00";
-      Digithour = "00";
-
-      started = false;
-    });
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
-
-  void addlaps() {
-    String lap = "$Digithour:$Digitminutes:$Digitsecond:$Digitminisec";
-
-    setState(() {
-      laps.add(lap);
-    });
-  }
-
-  // now let's create the start function
 
   void start() {
-    started = true;
-    timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+    stopWatch.start();
+    timer = Timer.periodic(const Duration(milliseconds: 30), (timer) {
       setState(() {
-        minisec++;
+        var elapsedMilliseconds = stopWatch.elapsedMilliseconds;
 
-        if (minisec >= 100) {
-          minisec = 0;
-          second++;
+        hour = (elapsedMilliseconds ~/ 3600000);
+        minute = ((elapsedMilliseconds ~/ 60000) % 60);
+        second = ((elapsedMilliseconds ~/ 1000) % 60);
+        minisec = (elapsedMilliseconds % 1000);
 
-          if (second >= 60) {
-            second = 0;
-            minute++;
-
-            if (minute >= 60) {
-              minute = 0;
-              hour++;
-            }
-          }
-        }
-
-        Digitminisec = (minisec % 100).toString().padLeft(2, '0');
-        Digitsecond = second.toString().padLeft(2, '0');
-        Digitminutes = minute.toString().padLeft(2, '0');
-        Digithour = hour.toString().padLeft(2, '0');
+        digitHour = hour.toString().padLeft(2, '0');
+        digitMinutes = minute.toString().padLeft(2, '0');
+        digitSecond = second.toString().padLeft(2, '0');
+        digitMinisec = (minisec ~/ 10).toString().padLeft(2, '0');
       });
+    });
+  }
+
+  void stop() {
+    timer.cancel();
+    setState(() {
+      started = false;
+    });
+  }
+
+  void restart() {
+    timer.cancel();
+    stopWatch.reset();
+    setState(() {
+      hour = minute = second = minisec = 0;
+      digitHour = digitMinutes = digitSecond = digitMinisec = "00";
+      started = false;
+      laps.clear();
+    });
+  }
+
+  void addLaps() {
+    String lap = "$digitHour:$digitMinutes:$digitSecond:$digitMinisec";
+    setState(() {
+      laps.add(lap);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF151C2F),
-        appBar: AppBar(
-          backgroundColor: Color(0xFF151C2F),
-          title: Text(
-            'Stopwatch',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-          ),
-          centerTitle: true,
-          elevation: 10,
-          shadowColor: Colors.black,
+      backgroundColor: const Color(0xFF151C2F),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF151C2F),
+        title: const Text(
+          'Stopwatch',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 70),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    '$Digithour',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.w600),
+        centerTitle: true,
+        elevation: 10,
+        shadowColor: Colors.black,
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 70),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '$digitHour',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 50,
+                      fontWeight: FontWeight.w600),
+                ),
+                const Text(
+                  ':',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  '$digitMinutes',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 50,
+                      fontWeight: FontWeight.w600),
+                ),
+                const Text(
+                  ':',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  '$digitSecond',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 50,
+                      fontWeight: FontWeight.w600),
+                ),
+                const Text(
+                  '.',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  '$digitMinisec',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 350,
+            width: 350,
+            decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(20)),
+            child: ListView.builder(
+              itemCount: laps.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Lap : ${index + 1}",
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 16),
+                      ),
+                      Text(
+                        "${laps[index]}",
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 16),
+                      ),
+                    ],
                   ),
-                  Text(
-                    ':',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    '$Digitminutes',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    '$Digitsecond',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    '.',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    '$Digitminisec',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 80),
+          Row(children: [
+            InkWell(
+              onTap: () {
+                (!started) ? start() : stop();
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: 45,
+                width: 170,
+                decoration: BoxDecoration(
+                    border:
+                    Border.all(color: Colors.blueAccent, width: 2),
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(50))),
+                child: Text(
+                  (!started) ? "Start" : "Stop",
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20),
+                ),
               ),
             ),
-            Container(
-              height: 400,
-              width: 350,
-              decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20)),
-              child: ListView.builder(
-                itemCount: laps.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Lap : ${index + 1}",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                        Text(
-                          "${laps[index]}",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+            InkWell(
+              onTap: () {
+                addLaps();
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                  color: Colors.blueAccent,
+                  border: Border.all(color: Colors.blue, width: 1.5),
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(
+                    onPressed: () {
+                      addLaps();
+                    },
+                    icon: const Icon(Icons.flag)),
               ),
             ),
-            SizedBox(height: 80),
-            Row(children: [
-              InkWell(
-                onTap: () {
-                  (!started) ? start() : stop();
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 45,
-                  width: 170,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blueAccent, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: Text(
-                    (!started) ? "Start" : "Stop",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20),
-                  ),
+            InkWell(
+              onTap: () {
+                restart();
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: 45,
+                width: 170,
+                decoration: BoxDecoration(
+                    border:
+                    Border.all(color: Colors.blueAccent, width: 2),
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(50))),
+                child: const Text(
+                  'Restart',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  addlaps();
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    border: Border.all(color: Colors.blue, width: 1.5),
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                      onPressed: () {
-                        addlaps();
-                      },
-                      icon: Icon(Icons.flag)),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  restart();
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 45,
-                  width: 170,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blueAccent, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: Text(
-                    'Restart',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20),
-                  ),
-                ),
-              )
-            ])
-          ],
-        ));
+            )
+          ])
+        ],
+      ),
+    );
   }
 }
