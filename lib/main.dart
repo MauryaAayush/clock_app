@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         '/'  : (context) => const SimpleClock(),
         '/second'  : (context) =>  const Analog(),
         '/third'  : (context) =>  const StopWatch(),
-        '/four'  : (context) =>  const Timer()
+        '/four'  : (context) =>  const Timerapp()
       },
 
     );
