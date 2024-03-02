@@ -12,7 +12,6 @@ class Timerapp extends StatefulWidget {
   @override
   State<Timerapp> createState() => _TimerappState();
 
-
 }
 
 DateTime dateTime = DateTime.now();
@@ -55,9 +54,9 @@ class _TimerappState extends State<Timerapp> {
           boxShadow: [
             BoxShadow(
               color: Colors.teal,
-              offset: Offset(5, 8),
-              blurRadius: 20,
-              spreadRadius: 5,
+              offset: Offset(5, 10),
+              blurRadius: 10,
+              spreadRadius: 2,
             ),
             BoxShadow(
               color: Color(0xFF1A1C1D),

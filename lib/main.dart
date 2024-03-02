@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: '/four',
+      initialRoute: '/second',
       routes: {
 
         '/'  : (context) => const SimpleClock(),
