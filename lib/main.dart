@@ -1,4 +1,5 @@
 import 'package:clock_app/view/first.dart';
+import 'package:clock_app/view/four.dart';
 import 'package:clock_app/view/second.dart';
 import 'package:clock_app/view/third.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: '/third',
+      initialRoute: '/four',
       routes: {
 
         '/'  : (context) => const SimpleClock(),
         '/second'  : (context) =>  const Analog(),
-        '/third'  : (context) =>  const StopWatch()
+        '/third'  : (context) =>  const StopWatch(),
+        '/four'  : (context) =>  const Timer()
       },
 
     );
