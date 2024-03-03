@@ -16,24 +16,22 @@ class Analog extends StatefulWidget {
 
 DateTime dateTime = DateTime.now();
 
+List icons = [
+  Icons.alarm,
+  Icons.language,
+  Icons.timer_outlined,
+  Icons.hourglass_empty,
+];
+List name = [
+  'Alarm',
+  'Clock',
+  'Stopwatch',
+  'Timer',
+];
+int click = 0;
+
 class _AnalogState extends State<Analog> {
 
-
-  List icons = [
-    Icons.alarm,
-    Icons.language,
-    Icons.timer_outlined,
-    Icons.hourglass_empty,
-
-  ];
-  List name = [
-    'Alarm',
-    'Clock',
-    'Stopwatch',
-    'Timer',
-
-  ];
-  int click = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +267,7 @@ class _AnalogState extends State<Analog> {
                   children: [
                     ...List.generate(
                       icons.length,
-                          (index) => InkWell(
+                      (index) => InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
                           setState(() {
@@ -283,49 +281,55 @@ class _AnalogState extends State<Analog> {
                             (click == 3)
                                 ? Navigator.of(context).pushNamed('/four')
                                 : null;
-
                           });
                         },
                         child: (click == index)
                             ? Column(
-                              children: [
-                                Container(
-                                                          height: 50,
-                                                          width: 120,
-                                                          alignment: Alignment.center,
-                                                          decoration: BoxDecoration(
-                                  color:  Colors.transparent,
-                                  borderRadius: BorderRadius.circular(50)),
-                                                          child: Icon(icons[index],
-                                                          color: Colors.white,
-                                                          size: 30,)
-                                                        ),
-
-                                Text('${name[index]}',style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500
-                                ),),
-                              ],
-                            )
+                                children: [
+                                  Container(
+                                      height: 50,
+                                      width: 120,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: Icon(
+                                        icons[index],
+                                        color: Colors.white,
+                                        size: 30,
+                                      )),
+                                  Text(
+                                    '${name[index]}',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              )
                             : Column(
-                              children: [
-                                Container(
-                                                          height: 50,
-                                                          width: 90,
-                                                          alignment: Alignment.center,
-                                                          decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50)),
-                                                          child: Icon(icons[index],
-                                                          color: Colors.grey,
-                                                          size: 30,),
-                                                        ),
-                                Text('${name[index]}',style: TextStyle(
-                                    color: Colors.grey,
-                                  fontWeight: FontWeight.w500
-                                ),),
-                              ],
-                            ),
-
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    width: 90,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    child: Icon(
+                                      icons[index],
+                                      color: Colors.grey,
+                                      size: 30,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${name[index]}',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
                       ),
                     )
                   ],
@@ -337,8 +341,4 @@ class _AnalogState extends State<Analog> {
       ),
     );
   }
-
-
-
-
 }

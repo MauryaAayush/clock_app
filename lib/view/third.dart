@@ -337,9 +337,7 @@ class _StopWatchState extends State<StopWatch> {
           child: Container(
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
-              // color: (selectedColumnIndex == index)
-              //     ? Colors.teal // Change the color for the selected screen
-              //     : Colors.transparent,
+              
               shape: BoxShape.circle,
             ),
             child: Icon(

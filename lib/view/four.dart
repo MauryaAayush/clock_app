@@ -14,6 +14,20 @@ class Timerapp extends StatefulWidget {
 
 DateTime dateTime = DateTime.now();
 
+List icons = [
+  Icons.alarm,
+  Icons.language,
+  Icons.timer_outlined,
+  Icons.hourglass_empty,
+];
+List name = [
+  'Alarm',
+  'Clock',
+  'Stopwatch',
+  'Timer',
+];
+int click = 0;
+
 class _TimerappState extends State<Timerapp> {
   int selectedColumnIndex = -1;
   int selectedIconIndex = -1;
@@ -35,12 +49,12 @@ class _TimerappState extends State<Timerapp> {
         backgroundColor: Colors.black,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: Text(
+        title: const Text(
           'Timer',
           style: TextStyle(
               color: Colors.teal, fontSize: 25, fontWeight: FontWeight.w600),
         ),
-        actionsIconTheme: IconThemeData(color: Colors.white),
+        actionsIconTheme: const IconThemeData(color: Colors.white),
         actions: [Icon(Icons.more_vert)],
       ),
       body: Column(
@@ -96,10 +110,71 @@ class _TimerappState extends State<Timerapp> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                buildIconColumn(0, Icons.alarm, 'Alarm'),
-                buildIconColumn(1, Icons.language, 'World Clock'),
-                buildIconColumn(2, Icons.timer_outlined, 'Stopwatch'),
-                buildIconColumn(3, Icons.hourglass_empty, 'Timer'),
+                ...List.generate(
+                  icons.length,
+                  (index) => InkWell(
+                    borderRadius: BorderRadius.circular(50),
+                    onTap: () {
+                      setState(() {
+                        click = index;
+                        (click == 0)
+                            ? Navigator.of(context).pushNamed('/')
+                            : null;
+                        (click == 1)
+                            ? Navigator.of(context).pushNamed('/second')
+                            : null;
+                        (click == 2)
+                            ? Navigator.of(context).pushNamed('/third')
+                            : null;
+                      });
+                    },
+                    child: (click == index)
+                        ? Column(
+                            children: [
+                              Container(
+                                  height: 50,
+                                  width: 120,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: Icon(
+                                    icons[index],
+                                    color: Colors.white,
+                                    size: 30,
+                                  )),
+                              Text(
+                                '${name[index]}',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 90,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: Icon(
+                                  icons[index],
+                                  color: Colors.grey,
+                                  size: 30,
+                                ),
+                              ),
+                              Text(
+                                '${name[index]}',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                  ),
+                )
               ],
             ),
           )
@@ -107,60 +182,6 @@ class _TimerappState extends State<Timerapp> {
       ),
     );
   }
-
-  Column buildIconColumn(int index, IconData icon, String text) {
-    Color iconColor = Color(0xFF454545);
-    Color textColor = Color(0xFF454545);
-
-    if (selectedColumnIndex == index) {
-      iconColor = Colors.white;
-      textColor = Colors.white;
-    }
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedColumnIndex = index;
-            });
-
-            // Set the selected index for the icons screen
-            selectedIconIndex = index;
-
-            // Navigate to the respective screen
-            switch (index) {
-              case 0:
-                Navigator.of(context).pushNamed('/');
-                break;
-              case 1:
-                Navigator.of(context).pushNamed('/second');
-                break;
-              case 2:
-                Navigator.of(context).pushNamed('/third');
-                break;
-              case 3:
-                Navigator.of(context).pushNamed('/four');
-                break;
-            }
-          },
-          child: Container(
-            padding: EdgeInsets.all(10.0),
-            child: Icon(
-              icon,
-              color: iconColor,
-              size: 30,
-            ),
-          ),
-        ),
-        Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-          ),
-        )
-      ],
-    );
-  }
 }
+
+
