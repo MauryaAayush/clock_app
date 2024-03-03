@@ -32,269 +32,285 @@ class _AnalogState extends State<Analog> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actionsIconTheme: IconThemeData(color: Colors.white),
+        actions: [Icon(Icons.more_vert)],
         backgroundColor: Colors.black,
         title: const Text(
-          'Analog Clock',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          'Clock',
+          style: TextStyle(
+              color: Colors.teal, fontSize: 25, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/back.jpg',),fit: BoxFit.fill),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 300,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: Color(0xFF0A0A0A),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.teal,
+                      offset: Offset(5, 10),
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                    ),
+                    BoxShadow(
+                      color: Color(0xFF1A1C1D),
+                      offset: Offset(-4, -5),
+                      blurRadius: 15,
+                      spreadRadius: 5,
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  children: [
+                    ...List.generate(
+                      60,
+                          (index) => Transform.rotate(
+                        angle: index * 6 * pi / 180,
+                        child: VerticalDivider(
+                          color: (index % 5 == 0) ? Colors.white : Colors.grey,
+                          thickness: 1,
+                          indent: (index % 5 == 0) ? 288 : 288,
+                          endIndent: (index % 5 == 0) ? 1 : 10,
+                        ),
+                      ),
+                    ),
+                    const Positioned.fill(
+                      child: Center(
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 8,
+                        ),
+                      ),
+                    ),
 
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: 230,
-                  width: 230,
-                  decoration: BoxDecoration(
-                      color: Colors.black38,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.green,
-                        width: 2,
-                      )),
-                  child: Stack(
-                    children: [
+                    // hour rotation
 
-                      // Container(
-                      //   height: 100,
-                      //   width: 100,
-                      //   decoration: BoxDecoration(
-                      //     shape: BoxShape.circle,
-                      //     border: Border.all(
-                      //         color: Colors.red,
-                      //         width: 2)
-                      //   ),
-                      // ),
+                    Transform.rotate(
+                      angle: (hour + dateTime.minute / 60) * 30 * pi / 180,
+                      child: const VerticalDivider(
+                        color: Colors.white,
+                        thickness: 5,
+                        indent: 60,
+                        endIndent: 130,
+                      ),
+                    ),
 
-                      ...List.generate(
-                        60,
-                        (index) => Transform.rotate(
-                          angle: index * 6 * pi / 180,
-                           child: //Text('${index++}',style: TextStyle(
-                          //   color: (index % 5 == 0) ? Colors.green : Colors.blue,
-                          // ),),
+                    // minute rotation
 
-                          VerticalDivider(
-                            color: (index % 5 == 0) ? Colors.transparent : Colors.transparent,
-                            thickness: 2,
-                            indent: (index % 5 == 0) ? 208 : 215,
-                            endIndent: 0,
-                          ),
-                        ),
+                    Transform.rotate(
+                      angle: dateTime.minute * 6 * pi / 180,
+                      child: const VerticalDivider(
+                        color: Colors.white,
+                        thickness: 4,
+                        indent: 45,
+                        endIndent: 130,
                       ),
-                      const Positioned.fill(
-                        child: Center(
-                          child: CircleAvatar(
-                            backgroundColor: Colors.grey,
-                            radius: 10,
-                          ),
-                        ),
+                    ),
+
+                    // seconds rotations
+
+                    Transform.rotate(
+                      angle: dateTime.second * 6 * pi / 180,
+                      child: const VerticalDivider(
+                        color: Colors.teal,
+                        thickness: 6,
+                        indent: 25,
+                        endIndent: 270,
                       ),
-                      Transform.rotate(
-                        angle: (hour + dateTime.minute / 60) * 30 * pi / 180,
-                        child: const VerticalDivider(
-                          color: Colors.green,
-                          thickness: 3.5,
-                          indent: 40,
-                          endIndent: 95,
-                        ),
-                      ),
-                      Transform.rotate(
-                        angle: dateTime.minute * 6 * pi / 180,
-                        child: const VerticalDivider(
-                          color: Colors.lightGreen,
-                          thickness: 3,
-                          indent: 30,
-                          endIndent: 95,
-                        ),
-                      ),
-                      Transform.rotate(
-                        angle: dateTime.second * 6 * pi / 180,
-                        child: const VerticalDivider(
-                          color: Colors.lightGreenAccent,
-                          thickness: 2.5,
-                          indent: 20,
-                          endIndent: 85,
-                        ),
-                      ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'India Standard Time |',
+                    style: TextStyle(
+                        color: Color(0xFF616264),
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500),
                   ),
+                  Text(
+                    DateFormat(' EEE').format(dateTime),
+                    style: TextStyle(
+                        color: Color(0xFF616264),
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    DateFormat(' , ${dateTime.day} '
+                        '')
+                        .format(dateTime),
+                    style: TextStyle(
+                        color: Color(0xFF616264),
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    DateFormat('MMM').format(dateTime),
+                    style: TextStyle(
+                        color: Color(0xFF616264),
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 15),
+                height: 120,
+                width: 420,
+                decoration: const BoxDecoration(
+                    color: Color(0xFF1F1F1F),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: ListView(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        'Gujarat',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      subtitle: Text(
+                        'Today',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                        ),
+                      ),
+                      trailing: RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text: "$hour : ${(dateTime.minute <= 9) ? '0${dateTime.minute}' : '${dateTime.minute}'}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w600)),
+                          TextSpan(
+                              text: " ${dateTime.hour < 12 ? 'AM' : 'PM'}",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w600))
+                        ]),
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              const SizedBox(
+                height: 100,
+              ),
 
-                const SizedBox(
-                  height: 150,
+              // adding icon of plus.
+
+              Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      color: Color(0xFF00BFC1), shape: BoxShape.circle),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 40,
+                  )),
+
+
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                alignment: Alignment.center,
+                height: 80,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Color(0xFF141414),
+                    border: Border.symmetric(horizontal: BorderSide(color: Colors.white38))
                 ),
-
-                ClipRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 170,
-                      width: 370,
-                      decoration: const BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/');
+                      },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Stack(children: [
-                                Positioned(
-                                  top: 53,
-                                  child: Container(
-                                    color: Colors.white,
-                                    height: 2,
-                                    width: 80,
-                                  ),
-                                ),
-                                ClipRect(
-                                  child: BackdropFilter(
-                                    filter:
-                                    ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                                    child: Container(
-                                      height: 100,
-                                      width: 80,
-                                      alignment: Alignment.center,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.black12,
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                      ),
-                                      child: Text(
-                                        '$hour',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 50,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Stack(children: [
-                                Positioned(
-                                  top: 53,
-                                  child: Container(
-                                    color: Colors.white,
-                                    height: 2,
-                                    width: 90,
-                                  ),
-                                ),
-                                ClipRect(
-                                  child: BackdropFilter(
-                                    filter:
-                                    ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                                    child: Container(
-                                      height: 100,
-                                      width: 80,
-                                      alignment: Alignment.center,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.black12,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Text(
-                                        ' ${dateTime.minute} ',
-                                        style: const TextStyle(
-                                            color: Colors.white, fontSize: 50),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Stack(children: [
-                                Positioned(
-                                  top: 53,
-                                  child: Container(
-                                    color: Colors.white,
-                                    height: 2,
-                                    width: 90,
-                                  ),
-                                ),
-                                ClipRect(
-                                  child: BackdropFilter(
-                                    filter:
-                                    ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                                    child: Container(
-                                      height: 100,
-                                      width: 80,
-                                      alignment: Alignment.center,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.black12,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Text(
-                                        '${dateTime.second}',
-                                        style: const TextStyle(
-                                            color: Colors.white, fontSize: 50),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                              const SizedBox(
-                                width: 10,
-                              ),
-
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '${dateTime.day}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                DateFormat('MMM').format(dateTime),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                '${dateTime.year}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
+                          Icon(Icons.alarm,color: Color(0xFF454545),size: 30,),
+                          Text('Alarm',style: TextStyle(
+                              color: Color(0xFF454545)
+                          ),)
                         ],
                       ),
                     ),
-                  ),
-                ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/second');
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.language,color: Color(0xFF454545),size: 30,),
+                          Text('World Clock',style: TextStyle(
+                              color: Color(0xFF454545)
+                          ),)
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/third');
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.timer_outlined,color: Color(0xFF454545),size: 30,),
+                          Text('Stopwatch',style: TextStyle(
+                              color:  Color(0xFF454545)
+                          ),)
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/four');
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.hourglass_empty,color:Color(0xFF454545),size: 30,),
+                          Text('Timer',style: TextStyle(
+                              color: Color(0xFF454545)
+                          ),)
+                        ],
+                      ),
+                    ),
 
-              ],
-            ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
