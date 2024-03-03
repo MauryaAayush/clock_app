@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,18 +10,16 @@ class Timerapp extends StatefulWidget {
 
   @override
   State<Timerapp> createState() => _TimerappState();
-
 }
 
 DateTime dateTime = DateTime.now();
 
 class _TimerappState extends State<Timerapp> {
-
   int selectedColumnIndex = -1;
   int selectedIconIndex = -1;
+
   @override
   Widget build(BuildContext context) {
-
     int hour = dateTime.hour % 12;
     hour = (hour == 0) ? 12 : hour;
 
@@ -32,7 +28,6 @@ class _TimerappState extends State<Timerapp> {
         dateTime = DateTime.now();
       });
     });
-
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -51,7 +46,6 @@ class _TimerappState extends State<Timerapp> {
       body: Column(
         children: [
           Expanded(
-
             child: Container(
               margin: EdgeInsets.all(70),
               height: 350,
@@ -91,15 +85,14 @@ class _TimerappState extends State<Timerapp> {
               ),
             ),
           ),
-
           Container(
             alignment: Alignment.center,
             height: 80,
             width: double.infinity,
             decoration: BoxDecoration(
                 color: Color(0xFF141414),
-                border: Border.symmetric(horizontal: BorderSide(color: Colors.white38))
-            ),
+                border: Border.symmetric(
+                    horizontal: BorderSide(color: Colors.white38))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

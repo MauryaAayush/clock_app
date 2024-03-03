@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,9 +17,53 @@ class Analog extends StatefulWidget {
 DateTime dateTime = DateTime.now();
 
 class _AnalogState extends State<Analog> {
-
   int selectedColumnIndex = -1;
   int selectedIconIndex = -1;
+  Color iconColor = Color(0xFF454545);
+  Color textColor = Color(0xFF454545);
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        dateTime = DateTime.now();
+        updateColors();
+      });
+    });
+  }
+
+  void updateColors() {
+    if (isClockScreen()) {
+      if (selectedColumnIndex == 0) {
+        iconColor = Colors.teal;
+        textColor = Colors.teal;
+      } else {
+        iconColor = Color(0xFF454545);
+        textColor = Color(0xFF454545);
+      }
+    } else if (isTimerScreen()) {
+      if (selectedColumnIndex == 3) {
+        iconColor = Colors.white;
+        textColor = Colors.white;
+      } else {
+        iconColor = Color(0xFF454545);
+        textColor = Color(0xFF454545);
+      }
+    } else {
+      iconColor = Color(0xFF454545);
+      textColor = Color(0xFF454545);
+    }
+  }
+
+  bool isClockScreen() {
+    return ModalRoute.of(context)?.settings.name == '/';
+  }
+
+  bool isTimerScreen() {
+    return ModalRoute.of(context)?.settings.name == '/four';
+  }
+
   @override
   Widget build(BuildContext context) {
     int hour = dateTime.hour % 12;
@@ -77,7 +120,7 @@ class _AnalogState extends State<Analog> {
                   children: [
                     ...List.generate(
                       60,
-                          (index) => Transform.rotate(
+                      (index) => Transform.rotate(
                         angle: index * 6 * pi / 180,
                         child: VerticalDivider(
                           color: (index % 5 == 0) ? Colors.white : Colors.grey,
@@ -156,7 +199,7 @@ class _AnalogState extends State<Analog> {
                   ),
                   Text(
                     DateFormat(' , ${dateTime.day} '
-                        '')
+                            '')
                         .format(dateTime),
                     style: TextStyle(
                         color: Color(0xFF616264),
@@ -204,7 +247,8 @@ class _AnalogState extends State<Analog> {
                       trailing: RichText(
                         text: TextSpan(children: [
                           TextSpan(
-                              text: "$hour : ${(dateTime.minute <= 9) ? '0${dateTime.minute}' : '${dateTime.minute}'}",
+                              text:
+                                  "$hour : ${(dateTime.minute <= 9) ? '0${dateTime.minute}' : '${dateTime.minute}'}",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 40,
@@ -238,7 +282,6 @@ class _AnalogState extends State<Analog> {
                     size: 40,
                   )),
 
-
               const SizedBox(
                 height: 30,
               ),
@@ -248,8 +291,8 @@ class _AnalogState extends State<Analog> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Color(0xFF141414),
-                    border: Border.symmetric(horizontal: BorderSide(color: Colors.white38))
-                ),
+                    border: Border.symmetric(
+                        horizontal: BorderSide(color: Colors.white38))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -291,21 +334,27 @@ class _AnalogState extends State<Analog> {
             // Navigate to the respective screen
             switch (index) {
               case 0:
-                Navigator.of(context).pushNamed('/');
+                Navigator.of(context).pushReplacementNamed('/');
                 break;
               case 1:
-                Navigator.of(context).pushNamed('/second');
+                Navigator.of(context).pushReplacementNamed('/second');
                 break;
               case 2:
-                Navigator.of(context).pushNamed('/third');
+                Navigator.of(context).pushReplacementNamed('/third');
                 break;
               case 3:
-                Navigator.of(context).pushNamed('/four');
+                Navigator.of(context).pushReplacementNamed('/four');
                 break;
             }
           },
           child: Container(
             padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              // color: (selectedColumnIndex == index)
+              //     ? Colors.teal // Change the color for the selected screen
+              //     : Colors.transparent,
+              shape: BoxShape.circle,
+            ),
             child: Icon(
               icon,
               color: iconColor,
@@ -322,5 +371,4 @@ class _AnalogState extends State<Analog> {
       ],
     );
   }
-
 }
