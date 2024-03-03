@@ -18,6 +18,9 @@ class Analog extends StatefulWidget {
 DateTime dateTime = DateTime.now();
 
 class _AnalogState extends State<Analog> {
+
+  int selectedColumnIndex = -1;
+  int selectedIconIndex = -1;
   @override
   Widget build(BuildContext context) {
     int hour = dateTime.hour % 12;
@@ -250,63 +253,10 @@ class _AnalogState extends State<Analog> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/');
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.alarm,color: Color(0xFF454545),size: 30,),
-                          Text('Alarm',style: TextStyle(
-                              color: Color(0xFF454545)
-                          ),)
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/second');
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.language,color: Color(0xFF454545),size: 30,),
-                          Text('World Clock',style: TextStyle(
-                              color: Color(0xFF454545)
-                          ),)
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/third');
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.timer_outlined,color: Color(0xFF454545),size: 30,),
-                          Text('Stopwatch',style: TextStyle(
-                              color:  Color(0xFF454545)
-                          ),)
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/four');
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.hourglass_empty,color:Color(0xFF454545),size: 30,),
-                          Text('Timer',style: TextStyle(
-                              color: Color(0xFF454545)
-                          ),)
-                        ],
-                      ),
-                    ),
-
+                    buildIconColumn(0, Icons.alarm, 'Alarm'),
+                    buildIconColumn(1, Icons.language, 'World Clock'),
+                    buildIconColumn(2, Icons.timer_outlined, 'Stopwatch'),
+                    buildIconColumn(3, Icons.hourglass_empty, 'Timer'),
                   ],
                 ),
               )
@@ -316,4 +266,61 @@ class _AnalogState extends State<Analog> {
       ),
     );
   }
+
+  Column buildIconColumn(int index, IconData icon, String text) {
+    Color iconColor = Color(0xFF454545);
+    Color textColor = Color(0xFF454545);
+
+    if (selectedColumnIndex == index) {
+      iconColor = Colors.white;
+      textColor = Colors.white;
+    }
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              selectedColumnIndex = index;
+            });
+
+            // Set the selected index for the icons screen
+            selectedIconIndex = index;
+
+            // Navigate to the respective screen
+            switch (index) {
+              case 0:
+                Navigator.of(context).pushNamed('/');
+                break;
+              case 1:
+                Navigator.of(context).pushNamed('/second');
+                break;
+              case 2:
+                Navigator.of(context).pushNamed('/third');
+                break;
+              case 3:
+                Navigator.of(context).pushNamed('/four');
+                break;
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            child: Icon(
+              icon,
+              color: iconColor,
+              size: 30,
+            ),
+          ),
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            color: textColor,
+          ),
+        )
+      ],
+    );
+  }
+
 }
