@@ -17,52 +17,23 @@ class Analog extends StatefulWidget {
 DateTime dateTime = DateTime.now();
 
 class _AnalogState extends State<Analog> {
-  int selectedColumnIndex = -1;
-  int selectedIconIndex = -1;
-  Color iconColor = Color(0xFF454545);
-  Color textColor = Color(0xFF454545);
 
-  @override
-  void initState() {
-    super.initState();
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        dateTime = DateTime.now();
-        updateColors();
-      });
-    });
-  }
 
-  void updateColors() {
-    if (isClockScreen()) {
-      if (selectedColumnIndex == 0) {
-        iconColor = Colors.teal;
-        textColor = Colors.teal;
-      } else {
-        iconColor = Color(0xFF454545);
-        textColor = Color(0xFF454545);
-      }
-    } else if (isTimerScreen()) {
-      if (selectedColumnIndex == 3) {
-        iconColor = Colors.white;
-        textColor = Colors.white;
-      } else {
-        iconColor = Color(0xFF454545);
-        textColor = Color(0xFF454545);
-      }
-    } else {
-      iconColor = Color(0xFF454545);
-      textColor = Color(0xFF454545);
-    }
-  }
+  List icons = [
+    Icons.alarm,
+    Icons.language,
+    Icons.timer_outlined,
+    Icons.hourglass_empty,
 
-  bool isClockScreen() {
-    return ModalRoute.of(context)?.settings.name == '/';
-  }
+  ];
+  List name = [
+    'Alarm',
+    'Clock',
+    'Stopwatch',
+    'Timer',
 
-  bool isTimerScreen() {
-    return ModalRoute.of(context)?.settings.name == '/four';
-  }
+  ];
+  int click = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -296,10 +267,67 @@ class _AnalogState extends State<Analog> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    buildIconColumn(0, Icons.alarm, 'Alarm'),
-                    buildIconColumn(1, Icons.language, 'World Clock'),
-                    buildIconColumn(2, Icons.timer_outlined, 'Stopwatch'),
-                    buildIconColumn(3, Icons.hourglass_empty, 'Timer'),
+                    ...List.generate(
+                      icons.length,
+                          (index) => InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {
+                          setState(() {
+                            click = index;
+                            (click == 0)
+                                ? Navigator.of(context).pushNamed('/')
+                                : null;
+                            (click == 2)
+                                ? Navigator.of(context).pushNamed('/third')
+                                : null;
+                            (click == 3)
+                                ? Navigator.of(context).pushNamed('/four')
+                                : null;
+
+                          });
+                        },
+                        child: (click == index)
+                            ? Column(
+                              children: [
+                                Container(
+                                                          height: 50,
+                                                          width: 120,
+                                                          alignment: Alignment.center,
+                                                          decoration: BoxDecoration(
+                                  color:  Colors.transparent,
+                                  borderRadius: BorderRadius.circular(50)),
+                                                          child: Icon(icons[index],
+                                                          color: Colors.white,
+                                                          size: 30,)
+                                                        ),
+
+                                Text('${name[index]}',style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500
+                                ),),
+                              ],
+                            )
+                            : Column(
+                              children: [
+                                Container(
+                                                          height: 50,
+                                                          width: 90,
+                                                          alignment: Alignment.center,
+                                                          decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50)),
+                                                          child: Icon(icons[index],
+                                                          color: Colors.grey,
+                                                          size: 30,),
+                                                        ),
+                                Text('${name[index]}',style: TextStyle(
+                                    color: Colors.grey,
+                                  fontWeight: FontWeight.w500
+                                ),),
+                              ],
+                            ),
+
+                      ),
+                    )
                   ],
                 ),
               )
@@ -310,65 +338,7 @@ class _AnalogState extends State<Analog> {
     );
   }
 
-  Column buildIconColumn(int index, IconData icon, String text) {
-    Color iconColor = Color(0xFF454545);
-    Color textColor = Color(0xFF454545);
 
-    if (selectedColumnIndex == index) {
-      iconColor = Colors.white;
-      textColor = Colors.white;
-    }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedColumnIndex = index;
-            });
 
-            // Set the selected index for the icons screen
-            selectedIconIndex = index;
-
-            // Navigate to the respective screen
-            switch (index) {
-              case 0:
-                Navigator.of(context).pushReplacementNamed('/');
-                break;
-              case 1:
-                Navigator.of(context).pushReplacementNamed('/second');
-                break;
-              case 2:
-                Navigator.of(context).pushReplacementNamed('/third');
-                break;
-              case 3:
-                Navigator.of(context).pushReplacementNamed('/four');
-                break;
-            }
-          },
-          child: Container(
-            padding: EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              // color: (selectedColumnIndex == index)
-              //     ? Colors.teal // Change the color for the selected screen
-              //     : Colors.transparent,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              icon,
-              color: iconColor,
-              size: 30,
-            ),
-          ),
-        ),
-        Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-          ),
-        )
-      ],
-    );
-  }
 }

@@ -1,4 +1,4 @@
-import 'package:clock_app/view/Stop.dart';
+
 import 'package:clock_app/view/first.dart';
 import 'package:clock_app/view/four.dart';
 import 'package:clock_app/view/second.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: '/third',
+      initialRoute: '/second',
       routes: {
 
         '/'  : (context) => const SimpleClock(),
