@@ -166,10 +166,10 @@ class _TimerappState extends State<Timerapp> {
                   height: 60,
                   width: 60,
                   decoration: BoxDecoration(
-                    color: Colors.teal,
+                    color: Color(0xFF262626),
                     borderRadius: BorderRadius.circular(50)
                   ),
-                  child: Icon(Icons.replay,size: 30,),
+                  child: Icon(Icons.replay,size: 30,color: Colors.white,),
                 ),
               ),
 
@@ -188,12 +188,13 @@ class _TimerappState extends State<Timerapp> {
                   height: 80,
                   width: 80,
                   decoration: BoxDecoration(
-                    color: Colors.teal,
+                    color: Color(0xFF00BFC0),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Icon(
                     isTimerRunning ? Icons.pause : Icons.play_arrow,
                     size: 40,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -210,10 +211,10 @@ class _TimerappState extends State<Timerapp> {
                   height: 60,
                   width: 60,
                   decoration: BoxDecoration(
-                      color: Colors.teal,
+                      color: Color(0xFF262626),
                       borderRadius: BorderRadius.circular(50)
                   ),
-                  child: Icon(Icons.add,size: 30),
+                  child: Icon(Icons.add,size: 30,color: Colors.white,),
                 ),
               ),
 

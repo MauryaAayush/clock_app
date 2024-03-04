@@ -27,7 +27,6 @@ class _TimerAppScreenState extends State<TimerAppScreen> {
   //
   // @override
   // void initState() {
-  //   // TODO: implement initState
   //   timerFunction();
   //   super.initState();
   // }
