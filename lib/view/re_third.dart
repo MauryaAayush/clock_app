@@ -93,12 +93,12 @@ class _StopWState extends State<StopW> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.symmetric(vertical: 25),
               child: Container(
                 alignment: Alignment.center,
 
-                height: 350,
-                width: 350,
+                height: 330,
+                width: 330,
                 decoration: BoxDecoration(
                   color: Color(0xFF0A0A0A),
                   shape: BoxShape.circle,
@@ -127,8 +127,8 @@ class _StopWState extends State<StopW> {
                           angle: index * 6 * pi / 180,
                           child: VerticalDivider(
                             color: Colors.white,
-                            thickness: 2,
-                            indent: 274,
+                            thickness: 1.5,
+                            indent: 299,
                             endIndent: 10,
                           ),
                         ),
@@ -184,9 +184,9 @@ class _StopWState extends State<StopW> {
             ),
           ),
 
-          SizedBox(height: 30,),
+
           Container(
-            margin: EdgeInsets.symmetric(vertical: 20),
+            margin: EdgeInsets.symmetric(vertical: 10),
             height: 300,
             width: 400,
             decoration: BoxDecoration(
@@ -229,8 +229,8 @@ class _StopWState extends State<StopW> {
                   },
                   child: Container(
                       alignment: Alignment.center,
-                      height: 55,
-                      width: 55,
+                      height: 60,
+                      width: 60,
                       decoration: BoxDecoration(
                           color: Color(0xFF262626),
                           borderRadius: BorderRadius.all(Radius.circular(50))),
@@ -240,14 +240,16 @@ class _StopWState extends State<StopW> {
                       )),
                 ),
 
+
+
                 GestureDetector(
                   onTap: () {
                     (!stopWatch.isRunning) ? stopWatch.start() : stopWatch.stop();
                   },
                   child: Container(
                       alignment: Alignment.center,
-                      height: 70,
-                      width: 70,
+                      height: 75,
+                      width: 75,
                       decoration: BoxDecoration(
                           color: Color(0xFF00BFC0),
                           borderRadius: BorderRadius.all(Radius.circular(50))),
@@ -258,6 +260,8 @@ class _StopWState extends State<StopW> {
                       )),
                 ),
 
+
+
                 GestureDetector(
                   onTap: () {
                     addLaps();
@@ -265,8 +269,8 @@ class _StopWState extends State<StopW> {
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     alignment: Alignment.center,
-                    height: 55,
-                    width: 55,
+                    height: 60,
+                    width: 60,
                     decoration: BoxDecoration(
                       color: Color(0xFF262626),
                       shape: BoxShape.circle,

@@ -202,7 +202,7 @@ class _TimerappState extends State<Timerapp> {
                   height: 80,
                   width: 80,
                   decoration: BoxDecoration(
-                    color: Color(0xFF00BFC0),
+                    color: Colors.teal,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Icon(
