@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'first.dart';
+
 class Timerapp extends StatefulWidget {
   const Timerapp({Key? key}) : super(key: key);
 
@@ -24,7 +26,7 @@ List name = [
   'Stopwatch',
   'Timer',
 ];
-int click = 0;
+
 
 int second = 60;
 int count = 1;
@@ -119,7 +121,19 @@ class _TimerappState extends State<Timerapp> {
                           ),
                         ),
                       ),
-                      
+
+                      Center(
+                        child: SizedBox(
+                          height: 275,
+                          width: 275,
+                          child: CircularProgressIndicator(
+                            color: Colors.teal,
+                            strokeWidth: 6,
+                            value: second / 60,
+                          ),
+                        ),
+                      )
+
                     ],
                   ),
                 ),
@@ -249,13 +263,13 @@ class _TimerappState extends State<Timerapp> {
                       setState(() {
                         click = index;
                         (click == 0)
-                            ? Navigator.of(context).pushNamed('/')
+                            ? Navigator.of(context).pushReplacementNamed('/')
                             : null;
                         (click == 1)
-                            ? Navigator.of(context).pushNamed('/second')
+                            ? Navigator.of(context).pushReplacementNamed('/second')
                             : null;
                         (click == 2)
-                            ? Navigator.of(context).pushNamed('/third')
+                            ? Navigator.of(context).pushReplacementNamed('/third')
                             : null;
                       });
                     },

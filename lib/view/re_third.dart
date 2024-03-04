@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-
+import 'first.dart';
 
 class StopW extends StatefulWidget {
   const StopW({super.key});
@@ -26,7 +23,7 @@ List name = [
   'Stopwatch',
   'Timer',
 ];
-int click = 0;
+
 
 class _StopWState extends State<StopW> {
   late Stopwatch stopWatch;
@@ -309,13 +306,13 @@ class _StopWState extends State<StopW> {
                         click = index;
 
                         (click == 0)
-                            ? Navigator.of(context).pushNamed('/')
+                            ? Navigator.of(context).pushReplacementNamed('/')
                             : null;
                         (click == 1)
-                            ? Navigator.of(context).pushNamed('/second')
+                            ? Navigator.of(context).pushReplacementNamed('/second')
                             : null;
                         (click == 3)
-                            ? Navigator.of(context).pushNamed('/four')
+                            ? Navigator.of(context).pushReplacementNamed('/four')
                             : null;
                       });
                     },

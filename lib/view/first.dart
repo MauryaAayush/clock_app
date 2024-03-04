@@ -58,17 +58,18 @@ class _SimpleClockState extends State<SimpleClock> {
         child: Column(
           children: [
             SizedBox(
-              height: 350,
+              height: 250,
             ),
             Icon(
               Icons.warning,
               color: Colors.amber,
-              size: 50,
+              size: 250,
             ),
             Expanded(
               child: Text(
                 'Under Processing',
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 30, color: Colors.white60,fontWeight: FontWeight.w600),
+
               ),
             ),
             Container(
@@ -77,8 +78,9 @@ class _SimpleClockState extends State<SimpleClock> {
               width: double.infinity,
               decoration: BoxDecoration(
                   color: Color(0xFF141414),
-                  border: Border.symmetric(
-                      horizontal: BorderSide(color: Colors.white38))),
+                  border: Border(
+                    top: BorderSide(color: Colors.white12)
+                  )),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -90,13 +92,13 @@ class _SimpleClockState extends State<SimpleClock> {
                         setState(() {
                           click = index;
                           (click == 1)
-                              ? Navigator.of(context).pushNamed('/second')
+                              ? Navigator.of(context).pushReplacementNamed('/second')
                               : null;
                           (click == 2)
-                              ? Navigator.of(context).pushNamed('/third')
+                              ? Navigator.of(context).pushReplacementNamed('/third')
                               : null;
                           (click == 3)
-                              ? Navigator.of(context).pushNamed('/four')
+                              ? Navigator.of(context).pushReplacementNamed('/four')
                               : null;
                         });
                       },
@@ -157,3 +159,6 @@ class _SimpleClockState extends State<SimpleClock> {
     );
   }
 }
+
+
+

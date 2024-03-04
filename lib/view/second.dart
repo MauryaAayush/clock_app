@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'first.dart';
+
 
 class Analog extends StatefulWidget {
   const Analog({super.key});
@@ -26,7 +28,7 @@ List name = [
   'Stopwatch',
   'Timer',
 ];
-int click = 0;
+
 
 class _AnalogState extends State<Analog> {
 
@@ -278,13 +280,13 @@ class _AnalogState extends State<Analog> {
                           setState(() {
                             click = index;
                             (click == 0)
-                                ? Navigator.of(context).pushNamed('/')
+                                ? Navigator.of(context).pushReplacementNamed('/')
                                 : null;
                             (click == 2)
-                                ? Navigator.of(context).pushNamed('/third')
+                                ? Navigator.of(context).pushReplacementNamed('/third')
                                 : null;
                             (click == 3)
-                                ? Navigator.of(context).pushNamed('/four')
+                                ? Navigator.of(context).pushReplacementNamed('/four')
                                 : null;
                           });
                         },

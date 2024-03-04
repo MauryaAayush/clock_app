@@ -23,13 +23,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-
-        '/'  : (context) => const SimpleClock(),
-        '/second'  : (context) =>  const Analog(),
-        '/third'  : (context) =>   const StopW(),
-        '/four'  : (context) =>  const Timerapp(),
-        '/timer'  : (context) =>  const TimerAppScreen(),
-
+        '/' : (context) => const SimpleClock(),
+        '/second' : (context) => const Analog(),
+        '/third' : (context) => const StopW(),
+        '/four' : (context) => const Timerapp(),
+        '/timer' : (context) => const TimerAppScreen(),
       },
 
 
