@@ -1,12 +1,11 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-void main() {
-  runApp(const StopW());
-}
+
 
 class StopW extends StatefulWidget {
   const StopW({super.key});
@@ -100,7 +99,7 @@ class _StopWState extends State<StopW> {
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Container(
                 alignment: Alignment.center,
-                // margin: EdgeInsets.all(10)
+
                 height: 350,
                 width: 350,
                 decoration: BoxDecoration(
@@ -123,60 +122,64 @@ class _StopWState extends State<StopW> {
                 ),
                 child: Stack(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Text(
-                        //   '$digitHour',
-                        //   style: const TextStyle(
-                        //       color: Colors.white,
-                        //       fontSize: 50,
-                        //       fontWeight: FontWeight.w600),
-                        // ),
-                        // const Text(
-                        //   ':',
-                        //   style: TextStyle(
-                        //       color: Colors.white,
-                        //       fontSize: 40,
-                        //       fontWeight: FontWeight.w600),
-                        // ),
-                        Text(
-                          digitMinutes,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.w600),
+
+                    ...List.generate(
+                      60,
+                          (index) => Center(
+                        child: Transform.rotate(
+                          angle: index * 6 * pi / 180,
+                          child: VerticalDivider(
+                            color: Colors.white,
+                            thickness: 2,
+                            indent: 274,
+                            endIndent: 10,
+                          ),
                         ),
-                        const Text(
-                          ':',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        Text(
-                          '$digitSecond',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        const Text(
-                          '.',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        Text(
-                          '$digitMinisec',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
+                      ),
+                    ),
+
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            digitMinutes,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 50,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            '$digitSecond',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 50,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          const Text(
+                            '.',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            '$digitMinisec',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -289,8 +292,11 @@ class _StopWState extends State<StopW> {
             width: double.infinity,
             decoration: BoxDecoration(
                 color: Color(0xFF141414),
-                border: Border.symmetric(
-                    horizontal: BorderSide(color: Colors.white38))),
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.white12
+                  )
+                )),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

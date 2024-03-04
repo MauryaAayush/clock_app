@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const SimpleClock());
-}
 
 class SimpleClock extends StatefulWidget {
   const SimpleClock({super.key});

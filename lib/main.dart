@@ -1,3 +1,4 @@
+import 'package:clock_app/view/Stop.dart';
 import 'package:clock_app/view/first.dart';
 import 'package:clock_app/view/four.dart';
 import 'package:clock_app/view/re_third.dart';
@@ -27,8 +28,10 @@ class MyApp extends StatelessWidget {
         '/second'  : (context) =>  const Analog(),
         '/third'  : (context) =>   const StopW(),
         '/four'  : (context) =>  const Timerapp(),
+        '/timer'  : (context) =>  const TimerAppScreen(),
 
       },
+
 
     );
   }

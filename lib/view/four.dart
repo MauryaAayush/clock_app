@@ -1,9 +1,7 @@
 import 'dart:async';
+import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const Timerapp());
-}
 
 class Timerapp extends StatefulWidget {
   const Timerapp({Key? key}) : super(key: key);
@@ -28,24 +26,24 @@ List name = [
 ];
 int click = 0;
 
-class _TimerappState extends State<Timerapp> {
-  int minutes = 1;
-  late int second = (minutes * 60);
-  bool isRunning = false;
-  late Timer timer;
+int second = 60;
+int count = 1;
 
-  void startStop() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (isRunning && second > 0) {
+class _TimerappState extends State<Timerapp> {
+
+  bool isTimerRunning = false;
+
+  timerFunction() async {
+    await Future.delayed(
+      Duration(seconds: 1),
+          () {
+        if (isTimerRunning && second > 0) {
           second--;
-        } else {
-          timer.cancel();
-          isRunning = false;
-          second = minutes * 60;
+          setState(() {});
+          timerFunction();
         }
-      });
-    });
+      },
+    );
   }
 
   @override
@@ -70,87 +68,159 @@ class _TimerappState extends State<Timerapp> {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              margin: EdgeInsets.all(70),
-              height: 350,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Color(0xFF0A0A0A),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.teal,
-                    offset: Offset(5, 10),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                  BoxShadow(
-                    color: Color(0xFF1A1C1D),
-                    offset: Offset(-4, -5),
-                    blurRadius: 15,
-                    spreadRadius: 5,
-                  ),
-                ],
-              ),
-              child: Stack(
-                children: [
-                  Center(
-                    child: Text(
-                      '$second sec',
-                      style: TextStyle(
+            child: Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(70),
+                  height: 300,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF0A0A0A),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
                         color: Colors.teal,
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
+                        offset: Offset(5, 10),
+                        blurRadius: 10,
+                        spreadRadius: 2,
                       ),
-                    ),
+                      BoxShadow(
+                        color: Color(0xFF1A1C1D),
+                        offset: Offset(-4, -5),
+                        blurRadius: 15,
+                        spreadRadius: 5,
+                      ),
+                    ],
                   ),
-                  // Add other clock elements as needed
+                  child: Stack(
+                    children: [
+                      ...List.generate(
+                        60,
+                        (index) => Center(
+                          child: Transform.rotate(
+                            angle: index * 6 * pi / 180,
+                            child: VerticalDivider(
+                              color: Colors.white,
+                              thickness: 2,
+                              indent:  285,
+                              endIndent:  10,
+                            ),
+                          ),
+                        ),
+                      ),
 
-                  CircularProgressIndicator(
-                    value: 1 - (minutes / 60),
-                    // Assuming the timer is set for 60 seconds
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
-                    strokeWidth: 5,
+                      Center(
+                        child: Text(
+                          '$second sec',
+                          style: TextStyle(
+                            color: Colors.teal,
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
 
           GestureDetector(
             onTap: () {
               setState(() {
-                if (isRunning) {
-                  isRunning = false;
-                  timer.cancel();
-                } else {
-                  isRunning = true;
-                  startStop();
-                }
+                second *= count;
               });
+              timerFunction();
             },
             child: Container(
               alignment: Alignment.center,
               height: 40,
               width: 150,
               decoration: BoxDecoration(
-                color: Colors.red,
-              ),
+                  color: Colors.teal, borderRadius: BorderRadius.circular(10)),
               child: Text(
-                '5 minutes',
-                style: TextStyle(color: Colors.white, fontSize: 25),
+                '$count minutes',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                ),
               ),
             ),
           ),
 
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                isRunning = true;
-              });
-            },
-            child: Text('Start Timer'),
+          SizedBox(height: 80,),
+          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    second = 60;
+                  });
+                },
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.teal,
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                  child: Icon(Icons.replay,size: 30,),
+                ),
+              ),
+
+              SizedBox(width: 20,),
+
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isTimerRunning = !isTimerRunning;
+                    if (isTimerRunning) {
+                      timerFunction();
+                    }
+                  });
+                },
+                child: Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.teal,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Icon(
+                    isTimerRunning ? Icons.pause : Icons.play_arrow,
+                    size: 40,
+                  ),
+                ),
+              ),
+
+              SizedBox(width: 20,),
+
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    count++;
+                  });
+                },
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.circular(50)
+                  ),
+                  child: Icon(Icons.add,size: 30),
+                ),
+              ),
+
+            ],
           ),
+
+          SizedBox(height: 30,),
 
           // this is bottom nav bar
 
@@ -161,8 +231,12 @@ class _TimerappState extends State<Timerapp> {
             width: double.infinity,
             decoration: BoxDecoration(
                 color: Color(0xFF141414),
-                border: Border.symmetric(
-                    horizontal: BorderSide(color: Colors.white38))),
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.white12
+                  )
+                )
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
