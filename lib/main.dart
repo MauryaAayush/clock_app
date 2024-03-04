@@ -1,9 +1,7 @@
-
 import 'package:clock_app/view/first.dart';
 import 'package:clock_app/view/four.dart';
 import 'package:clock_app/view/re_third.dart';
 import 'package:clock_app/view/second.dart';
-import 'package:clock_app/view/third.dart';
 import 'package:flutter/material.dart';
 
 void main() {

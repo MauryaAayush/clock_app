@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const StopW());
@@ -26,7 +28,6 @@ List name = [
   'Timer',
 ];
 int click = 0;
-
 
 class _StopWState extends State<StopW> {
   late Stopwatch stopWatch;
@@ -74,7 +75,7 @@ class _StopWState extends State<StopW> {
   }
 
   void addLaps() {
-    String lap = "$digitHour:$digitMinutes:$digitSecond:$digitMinisec";
+    String lap = "$digitMinutes:$digitSecond.$digitMinisec";
     setState(() {
       laps.add(lap);
     });
@@ -126,20 +127,20 @@ class _StopWState extends State<StopW> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          '$digitHour',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        const Text(
-                          ':',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w600),
-                        ),
+                        // Text(
+                        //   '$digitHour',
+                        //   style: const TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: 50,
+                        //       fontWeight: FontWeight.w600),
+                        // ),
+                        // const Text(
+                        //   ':',
+                        //   style: TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: 40,
+                        //       fontWeight: FontWeight.w600),
+                        // ),
                         Text(
                           digitMinutes,
                           style: const TextStyle(
@@ -182,11 +183,14 @@ class _StopWState extends State<StopW> {
               ),
             ),
           ),
+
+          SizedBox(height: 30,),
           Container(
-            height: 350,
-            width: 350,
+            margin: EdgeInsets.symmetric(vertical: 20),
+            height: 300,
+            width: 400,
             decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(20)),
             child: ListView.builder(
               itemCount: laps.length,
@@ -199,12 +203,13 @@ class _StopWState extends State<StopW> {
                       Text(
                         "Lap : ${index + 1}",
                         style:
-                            const TextStyle(color: Colors.white, fontSize: 16),
+                            const TextStyle(color: Colors.teal
+                                , fontSize: 20),
                       ),
                       Text(
                         "${laps[index]}",
                         style:
-                            const TextStyle(color: Colors.white, fontSize: 16),
+                            const TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ],
                   ),
@@ -212,68 +217,72 @@ class _StopWState extends State<StopW> {
               },
             ),
           ),
-          const SizedBox(height: 80),
-          Row(children: [
-            InkWell(
-              onTap: () {
-                (!stopWatch.isRunning) ? stopWatch.start() : stopWatch.stop();
-              },
-              child: Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 170,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueAccent, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
-                child: Text(
-                  (!stopWatch.isRunning) ? "Start" : "Stop",
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
+          // const SizedBox(height: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+
+                GestureDetector(
+                  onTap: () {
+                    laps.clear();
+                    stopWatch.reset();
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      height: 55,
+                      width: 55,
+                      decoration: BoxDecoration(
+                          color: Color(0xFF262626),
+                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      child: Icon(
+                        Icons.restart_alt_outlined,
+                        color: Colors.white,
+                      )),
                 ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                addLaps();
-              },
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  border: Border.all(color: Colors.blue, width: 1.5),
-                  shape: BoxShape.circle,
+
+                GestureDetector(
+                  onTap: () {
+                    (!stopWatch.isRunning) ? stopWatch.start() : stopWatch.stop();
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          color: Color(0xFF00BFC0),
+                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      child: Icon(
+                        (!stopWatch.isRunning) ? Icons.play_arrow : Icons.pause,
+                        color: Colors.white,
+                        size: 30,
+                      )),
                 ),
-                child: IconButton(
-                    onPressed: () {
-                      addLaps();
-                    },
-                    icon: const Icon(Icons.flag)),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                laps.clear();
-                stopWatch.reset();
-              },
-              child: Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 170,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueAccent, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
-                child: const Text(
-                  'Restart',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
+
+                GestureDetector(
+                  onTap: () {
+                    addLaps();
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.center,
+                    height: 55,
+                    width: 55,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF262626),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                        onPressed: () {
+                          addLaps();
+                        },
+                        icon: const Icon(Icons.flag,color: Colors.white,)),
+                  ),
                 ),
-              ),
-            )
+
           ]),
+
+          SizedBox(height: 30,),
+
           Container(
             alignment: Alignment.center,
             height: 80,
@@ -291,7 +300,6 @@ class _StopWState extends State<StopW> {
                     borderRadius: BorderRadius.circular(50),
                     onTap: () {
                       setState(() {
-
                         click = index;
 
                         (click == 0)
@@ -360,4 +368,3 @@ class _StopWState extends State<StopW> {
     );
   }
 }
-

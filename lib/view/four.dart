@@ -29,19 +29,29 @@ List name = [
 int click = 0;
 
 class _TimerappState extends State<Timerapp> {
-  int selectedColumnIndex = -1;
-  int selectedIconIndex = -1;
+  int minutes = 1;
+  late int second = (minutes * 60);
+  bool isRunning = false;
+  late Timer timer;
+
+  void startStop() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (isRunning && second > 0) {
+          second--;
+        } else {
+          timer.cancel();
+          isRunning = false;
+          second = minutes * 60;
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     int hour = dateTime.hour % 12;
     hour = (hour == 0) ? 12 : hour;
-
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        dateTime = DateTime.now();
-      });
-    });
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -86,7 +96,7 @@ class _TimerappState extends State<Timerapp> {
                 children: [
                   Center(
                     child: Text(
-                      '${dateTime.second}',
+                      '$second sec',
                       style: TextStyle(
                         color: Colors.teal,
                         fontSize: 50,
@@ -95,11 +105,57 @@ class _TimerappState extends State<Timerapp> {
                     ),
                   ),
                   // Add other clock elements as needed
+
+                  CircularProgressIndicator(
+                    value: 1 - (minutes / 60),
+                    // Assuming the timer is set for 60 seconds
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
+                    strokeWidth: 5,
+                  ),
                 ],
               ),
             ),
           ),
+
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                if (isRunning) {
+                  isRunning = false;
+                  timer.cancel();
+                } else {
+                  isRunning = true;
+                  startStop();
+                }
+              });
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 40,
+              width: 150,
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+              child: Text(
+                '5 minutes',
+                style: TextStyle(color: Colors.white, fontSize: 25),
+              ),
+            ),
+          ),
+
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                isRunning = true;
+              });
+            },
+            child: Text('Start Timer'),
+          ),
+
+          // this is bottom nav bar
+
           Container(
+            padding: EdgeInsets.all(0),
             alignment: Alignment.center,
             height: 80,
             width: double.infinity,
@@ -174,7 +230,7 @@ class _TimerappState extends State<Timerapp> {
                             ],
                           ),
                   ),
-                )
+                ),
               ],
             ),
           )
@@ -183,5 +239,3 @@ class _TimerappState extends State<Timerapp> {
     );
   }
 }
-
-
