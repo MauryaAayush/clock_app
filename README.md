@@ -1,5 +1,21 @@
 # clock_app
 
+
+
+
+<img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/5e99f8fd-dc91-4ffc-a9df-46ba5a90d70a" height = 500px>
+<img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/aba9eeb6-fb23-495a-aa0e-bae2bd4fd174" height = 500px>
+<img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/14c27b98-d4de-48d3-a19f-a3e85e00ebff" height = 500px>
+<img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/b87ed2e1-675d-4674-8b34-4f2552fe1fdd" height = 500px>
+
+<img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/80a412fe-d791-4d6c-bb46-f9676ea44d39" height = 500px>
+<img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/1fee05f8-fc8b-4d49-a4bb-95b912754eda" height = 500px>
+
+
+
+
+
+
 A new Flutter project.
 
 
