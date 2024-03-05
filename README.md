@@ -1,7 +1,7 @@
 # clock_app
 
 
-
+Clock APP
 
 <img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/5e99f8fd-dc91-4ffc-a9df-46ba5a90d70a" height = 500px>
 <img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/aba9eeb6-fb23-495a-aa0e-bae2bd4fd174" height = 500px>
@@ -12,11 +12,14 @@
 <img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/1fee05f8-fc8b-4d49-a4bb-95b912754eda" height = 500px>
 
 
+<br>
+Video of Clock App
+<br>
+https://github.com/MauryaAayush/clock_app/assets/143180849/c1bcc3fe-3eae-40b8-9509-f9bc25de5c6f
+<br>
 
 
-
-
-A new Flutter project.
+All are for the Practice .
 
 
 <img src = "https://github.com/MauryaAayush/clock_app/assets/143180849/77b435aa-598c-434c-87ff-af0720bce03c" height = 500px>
