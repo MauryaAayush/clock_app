@@ -128,7 +128,7 @@ class _StopWState extends State<StopW> {
                           child: VerticalDivider(
                             color: Colors.white,
                             thickness: 1.5,
-                            indent: 299,
+                            indent: 325,
                             endIndent: 10,
                           ),
                         ),
